@@ -3,12 +3,13 @@ FROM jupyterhub/singleuser:latest
 WORKDIR /tmp
 
 RUN mamba install -y \
-    pytorch \
+    pytorch torchvision torchaudio pytorch-cuda \
     numpy \
     seaborn \
     pandas \
     matplotlib \
-    scikit-learn
+    scikit-learn \
+    -c pytorch -c nvidia
 
 RUN mamba clean --all -f -y && \
     jupyter lab clean && \
@@ -18,3 +19,4 @@ RUN mamba clean --all -f -y && \
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
+COPY pip.conf /etc/pip.conf
