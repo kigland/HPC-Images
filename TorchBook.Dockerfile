@@ -4,8 +4,6 @@ WORKDIR /tmp
 
 RUN mamba install -y \
     pytorch \
-    tensorflow \
-    keras \
     numpy \
     seaborn \
     pandas \
