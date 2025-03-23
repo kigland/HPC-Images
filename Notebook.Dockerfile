@@ -8,6 +8,12 @@ RUN apt-get update --yes && \
     ca-certificates curl wget neovim iputils-ping dnsutils && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN mamba clean --all -f -y && \
+    jupyter lab clean && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
 COPY pip.conf /etc/pip.conf
 
 USER ${NB_UID}
