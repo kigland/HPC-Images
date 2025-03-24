@@ -4,8 +4,8 @@ USER root
 
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    git htop p7zip-full tar unzip zip make \
-    libgl1-mesa-glx ffmpeg libsm6 libxext6 \
+    git htop btop p7zip-full tar unzip zip make \
+    libgl1 libglx-mesa0 ffmpeg libsm6 libxext6 \
     ca-certificates curl wget neovim iputils-ping dnsutils && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
