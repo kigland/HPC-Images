@@ -7,6 +7,7 @@ RUN apt-get update --yes && \
     git htop btop p7zip-full tar unzip zip make \
     libgl1 libglx-mesa0 ffmpeg libsm6 libxext6 \
     ca-certificates curl wget neovim iputils-ping dnsutils && \
+    nano neovim && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mamba clean --all -f -y && \
