@@ -1,5 +1,7 @@
 FROM jupyterhub/singleuser:latest
 
+LABEL maintainer="kevin@kig.land"
+
 USER root
 
 RUN apt-get update --yes && \
