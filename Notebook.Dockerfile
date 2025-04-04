@@ -16,6 +16,8 @@ RUN mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 COPY pip.conf /etc/pip.conf
 
 USER ${NB_UID}
