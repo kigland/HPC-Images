@@ -26,13 +26,16 @@ RUN mamba clean --all -f -y && \
 
 RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+COPY start-nb-with-ssh.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/start-nb-with-ssh.sh
+
 COPY pip.conf /etc/pip.conf
+
+COPY ubuntu.sources /etc/apt/sources.list.d
 
 USER ${NB_UID}
 
 EXPOSE 22
-
-COPY start-nb-with-ssh.sh /usr/local/bin/
 
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["/usr/local/bin/start-nb-with-ssh.sh"]
