@@ -35,6 +35,8 @@ COPY ubuntu.sources /etc/apt/sources.list.d
 
 USER ${NB_UID}
 
+RUN sed -i '/eval "$(conda shell.bash hook)"/c\export PATH="/opt/conda/bin:/opt/conda/condabin:/opt/conda/bin:/opt/conda/condabin:/opt/conda/bin:$PATH"\neval "$(conda shell.bash hook)"' ~/.bashrc
+
 EXPOSE 22
 
 ENTRYPOINT ["tini", "-g", "--"]
