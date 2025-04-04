@@ -19,6 +19,8 @@ RUN mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+COPY ubuntu.sources /etc/apt/sources.list.d
+
 USER ${NB_UID}
 WORKDIR "${HOME}"
 COPY pip.conf /etc/pip.conf
