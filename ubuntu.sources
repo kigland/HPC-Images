@@ -1,5 +1,5 @@
 Types: deb
-URIs: http://mirrors.pku.edu.cn/ubuntu 
+URIs: https://mirrors.pku.edu.cn/ubuntu 
 # http://cn.archive.ubuntu.com/ubuntu/
 Suites: noble noble-updates noble-backports
 Components: main restricted universe multiverse
