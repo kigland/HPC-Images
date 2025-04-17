@@ -6,7 +6,7 @@ USER root
 
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    git htop btop p7zip-full tar unzip zip make \
+    git htop btop p7zip-full tar unzip zip make screen \
     libgl1 libglx-mesa0 ffmpeg libsm6 libxext6 \
     ca-certificates curl wget neovim iputils-ping dnsutils \
     nano neovim
@@ -24,9 +24,11 @@ RUN mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "jovyan:password" | chpasswd
 
-COPY start-nb-with-ssh.sh /usr/local/bin/
+# RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+COPY start-nb-with-ssh-dev.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/start-nb-with-ssh.sh
 
 COPY pip.conf /etc/pip.conf
@@ -40,4 +42,4 @@ RUN sed -i '/eval "$(conda shell.bash hook)"/c\export PATH="/opt/conda/bin:/opt/
 EXPOSE 22
 
 ENTRYPOINT ["tini", "-g", "--"]
-CMD ["/usr/local/bin/start-nb-with-ssh.sh"]
+CMD ["/usr/local/bin/start-nb-with-ssh-dev.sh"]
