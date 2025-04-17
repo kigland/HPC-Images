@@ -4,7 +4,13 @@
 set -e
 
 if [ -n "$JUPYTER_TOKEN" ]; then
-    echo "jovyan:$JUPYTER_TOKEN" | sudo chpasswd
+    echo -e "password\n$JUPYTER_TOKEN\n$JUPYTER_TOKEN" | passwd jovyan
+else
+    RANDOM_PASSWORD=$(openssl rand -base64 32)
+    echo -e "password\n$RANDOM_PASSWORD\n$RANDOM_PASSWORD" | passwd jovyan
+    echo "user password: $RANDOM_PASSWORD" > /home/jovyan/password.txt
+    chmod 600 /home/jovyan/password.txt
+    echo "Password saved to /home/jovyan/password.txt"
 fi
 
 sudo /usr/sbin/sshd -D &
