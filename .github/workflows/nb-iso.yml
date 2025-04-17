@@ -29,6 +29,6 @@ jobs:
           context: .
           file: ./Notebook-iso.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/notebook-iso
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/notebook-iso
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/notebook-iso:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/notebook-iso:latest
           cache-to: type=inline
