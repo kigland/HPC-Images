@@ -13,7 +13,7 @@ else
     echo "Password saved to /home/jovyan/password.txt"
 fi
 
-sudo /usr/sbin/sshd -D &
+/usr/sbin/sshd -D &
 
 # Check if NB_VAR_BASE_URL is set
 if [ -z "$NB_VAR_BASE_URL" ]; then
