@@ -19,6 +19,9 @@ RUN mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+COPY start-nb-base.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/start-nb-base.sh
+
 COPY pip.conf /etc/pip.conf
 
 COPY ubuntu.sources /etc/apt/sources.list.d
@@ -26,3 +29,6 @@ COPY ubuntu.sources /etc/apt/sources.list.d
 USER ${NB_UID}
 
 RUN sed -i '/eval "$(conda shell.bash hook)"/c\export PATH="/opt/conda/bin:/opt/conda/condabin:/opt/conda/bin:/opt/conda/condabin:/opt/conda/bin:$PATH"\neval "$(conda shell.bash hook)"' ~/.bashrc
+
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["/usr/local/bin/start-nb-base.sh"]
