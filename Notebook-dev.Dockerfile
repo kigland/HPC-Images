@@ -30,7 +30,7 @@ RUN echo "jovyan:password" | chpasswd
 # RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 COPY start-nb-with-ssh-dev.sh /usr/local/bin/
-RUN chmod 755 /usr/local/bin/start-nb-with-ssh.sh
+RUN chmod 755 /usr/local/bin/start-nb-with-ssh-dev.sh
 
 COPY pip.conf /etc/pip.conf
 
