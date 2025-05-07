@@ -2,11 +2,15 @@
 # Copyright (c) 2025 Xiang Shi (KevinZonda) & KigLand
 
 set -e
-PASSWORD_CHANGED_FLAG="/etc/ohpc/password_changed"
+
+OHPC_FOLDER="/etc/ohpc"
+PASSWORD_CHANGED_FLAG="$OHPC_FOLDER/password_changed"
 
 if [ -n "$JUPYTER_TOKEN" ] && [ ! -f "$PASSWORD_CHANGED_FLAG" ]; then
     echo "jovyan:$JUPYTER_TOKEN" | sudo chpasswd
-    sudo mkdir '/etc/ohpc/'
+    if [ ! -d OHPC_FOLDER ]; then
+        sudo mkdir "$OHPC_FOLDER"
+    fi
     sudo echo '1' > "$PASSWORD_CHANGED_FLAG"
     sudo chown jovyan:users "$PASSWORD_CHANGED_FLAG"
     sudo chmod 444 "$PASSWORD_CHANGED_FLAG"
