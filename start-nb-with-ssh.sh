@@ -1,10 +1,18 @@
 #!/bin/bash
-# Copyright (c) Xiang Shi (KevinZonda) & KigLand
+# Copyright (c) 2025 Xiang Shi (KevinZonda) & KigLand
 
 set -e
+PASSWORD_CHANGED_FLAG="/home/jovyan/.openhpc_ready_flag"
 
-if [ -n "$JUPYTER_TOKEN" ]; then
+if [ -n "$JUPYTER_TOKEN" ] && [ ! -f "$PASSWORD_CHANGED_FLAG" ]; then
     echo "jovyan:$JUPYTER_TOKEN" | sudo chpasswd
+    echo 'DO NOT REMOVE' > "$PASSWORD_CHANGED_FLAG"
+    sudo chown jovyan:users "$PASSWORD_CHANGED_FLAG"
+    sudo chmod 600 "$PASSWORD_CHANGED_FLAG"
+else
+    if [ -f "$PASSWORD_CHANGED_FLAG" ]; then
+        echo "password is ready."
+    fi
 fi
 
 sudo /usr/sbin/sshd -D &
