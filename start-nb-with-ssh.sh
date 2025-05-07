@@ -9,9 +9,9 @@ PASSWORD_CHANGED_FLAG="$OHPC_FOLDER/password_changed"
 if [ -n "$JUPYTER_TOKEN" ] && [ ! -f "$PASSWORD_CHANGED_FLAG" ]; then
     echo "jovyan:$JUPYTER_TOKEN" | sudo chpasswd
     if [ ! -d OHPC_FOLDER ]; then
-        sudo mkdir "$OHPC_FOLDER"
+        sudo mkdir -p "$OHPC_FOLDER" > /dev/null
     fi
-    sudo echo '1' > "$PASSWORD_CHANGED_FLAG"
+    echo '1' | sudo tee "$PASSWORD_CHANGED_FLAG" > /dev/null
     sudo chown jovyan:users "$PASSWORD_CHANGED_FLAG"
     sudo chmod 444 "$PASSWORD_CHANGED_FLAG"
 else
