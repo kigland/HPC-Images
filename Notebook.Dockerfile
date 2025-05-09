@@ -29,6 +29,11 @@ RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 COPY start-nb-with-ssh.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/start-nb-with-ssh.sh
 
+USER ${NB_UID}
+RUN pip install --extra-index-url https://pypi.anaconda.org/rapidsai-wheels-nightly/simple --pre jupyterlab_nvdashboard
+
+USER root
+
 COPY pip.conf /etc/pip.conf
 
 COPY ubuntu.sources /etc/apt/sources.list.d
