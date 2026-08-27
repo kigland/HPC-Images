@@ -14,7 +14,8 @@ RUN apt-get update --yes && \
 RUN apt-get install -y openssh-server && \
     mkdir /var/run/sshd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config && \
-    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/^[[:space:]]*session[[:space:]]*required[[:space:]]*pam_loginuid\.so/# &/' /etc/pam.d/sshd
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
